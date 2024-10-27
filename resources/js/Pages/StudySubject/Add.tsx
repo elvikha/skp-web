@@ -1,0 +1,32 @@
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { PageProps } from '@/types';
+import { Head } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
+import StudySubjectForm from './Partials/StudySubjectForm';
+
+export default function Add({ errors }: PageProps<{ errors: any }>) {
+    return (
+        <AuthenticatedLayout
+            header={
+                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                    Tambah Study Subject
+                </h2>
+            }
+        >
+            <Head title="Profile" />
+
+            <div className="py-12">
+                <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
+                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
+                        <StudySubjectForm
+                            className="space-y-6"
+                            errors={errors}
+                            auth={usePage().props.auth}
+                            ziggy={usePage().props.ziggy}
+                        />
+                    </div>
+                </div>
+            </div >
+        </AuthenticatedLayout >
+    );
+}

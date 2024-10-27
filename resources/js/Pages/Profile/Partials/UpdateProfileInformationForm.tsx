@@ -21,6 +21,9 @@ export default function UpdateProfileInformation({
         useForm({
             name: user.name,
             email: user.email,
+            phone_number: user.phone_number,
+            identification_number: user.identification_number,
+            status: user.status,
         });
 
     const submit: FormEventHandler = (e) => {
@@ -96,6 +99,38 @@ export default function UpdateProfileInformation({
                         )}
                     </div>
                 )}
+
+                <div>
+                    <InputLabel htmlFor="phone_number" value="No. Handphone" />
+
+                    <TextInput
+                        id="phone_number"
+                        className="mt-1 block w-full"
+                        value={data.phone_number}
+                        onChange={(e) => setData('phone_number', e.target.value)}
+                        required
+                        isFocused
+                        autoComplete="phone_number"
+                    />
+
+                    <InputError className="mt-2" message={errors.phone_number} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="identification_number" value="NIM / NIP" />
+
+                    <TextInput
+                        id="identification_number"
+                        className="mt-1 block w-full"
+                        value={data.identification_number}
+                        onChange={(e) => setData('identification_number', e.target.value)}
+                        required
+                        isFocused
+                        autoComplete="identification_number"
+                    />
+
+                    <InputError className="mt-2" message={errors.identification_number} />
+                </div>
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>

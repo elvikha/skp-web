@@ -12,6 +12,9 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        phone_number: '',
+        identification_number: '',
+        status: '',
     });
 
     const submit: FormEventHandler = (e) => {
@@ -28,7 +31,7 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Nama" />
 
                     <TextInput
                         id="name"
@@ -101,6 +104,58 @@ export default function Register() {
                         message={errors.password_confirmation}
                         className="mt-2"
                     />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="phone_number" value="No. Handphone" />
+
+                    <TextInput
+                        id="phone_number"
+                        type="text"
+                        name="phone_number"
+                        value={data.phone_number}
+                        className="mt-1 block w-full"
+                        autoComplete="username"
+                        onChange={(e) => setData('phone_number', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.phone_number} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="identification_number" value="NIM / NIP" />
+
+                    <TextInput
+                        id="identification_number"
+                        type="text"
+                        name="identification_number"
+                        value={data.identification_number}
+                        className="mt-1 block w-full"
+                        autoComplete="username"
+                        onChange={(e) => setData('identification_number', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.identification_number} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="status" value="Status" />
+
+                    <TextInput
+                        id="status"
+                        type="text"
+                        name="status"
+                        value={data.status}
+                        placeholder='Mahasiswa 1 / Dosen 2 / Admin 3'
+                        className="mt-1 block w-full"
+                        autoComplete="username"
+                        onChange={(e) => setData('status', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.status} className="mt-2" />
                 </div>
 
                 <div className="mt-4 flex items-center justify-end">
