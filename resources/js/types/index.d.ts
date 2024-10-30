@@ -18,3 +18,19 @@ export type PageProps<
     };
     ziggy: Config & { location: string };
 };
+
+export type TSubStudySubject = {
+    id: Key | null | undefined;
+    name: string;
+    description: string;
+    point: number;
+    study_subject_id?: number | null;
+    sub_study_subjects?: TSubStudySubject[];
+};
+
+export type TStudySubject = {
+    name: string;
+    description: string;
+    point: number;
+    sub_study_subjects?: TSubStudySubject[];
+};

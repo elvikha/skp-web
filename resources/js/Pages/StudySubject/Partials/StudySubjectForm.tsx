@@ -3,55 +3,70 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextAreaInput from '@/Components/TextAreaInput';
 import TextInput from '@/Components/TextInput';
-import { PageProps } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Link, router, useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
+import { TStudySubject, TSubStudySubject, PageProps } from '@/types';
 
 export default function StudySubjectForm(
-    { className = '', errors }: PageProps<{ className: string, errors?: any }>
+    {
+        className = '',
+        // errors,
+        studySubjectId = null,
+        studySubject
+    }: PageProps<{
+        className: string,
+        // errors?: any,
+        studySubjectId?: number | string | null,
+        studySubject?: TStudySubject
+    }>
 ) {
-    const [values, setValues] = useState<{
-        name: string;
-        description: string;
-        point: number;
-        subStudySubjects: { name: string; description: string; point: number }[];
-    }>({
-        name: "",
-        description: "",
-        point: 0,
-        subStudySubjects: [
-            // { name: '', description: '', point: 0 },
-            // { name: '', description: '', point: 0 },
-        ],
-    })
+    type TFormInputID = "name" | "description" | "point" | "sub_study_subjects";
 
-    const [processing, setProcessing] = useState(false);
+    const { data, setData, patch, errors, processing, recentlySuccessful } =
+        useForm<TStudySubject>({
+            name: studySubject?.name || "",
+            description: studySubject?.description || "",
+            point: studySubject?.point || 0,
+            sub_study_subjects: studySubject?.sub_study_subjects?.map(item => ({
+                id: item.id,
+                study_subject_id: item.study_subject_id,
+                name: item.name,
+                description: item.description,
+                point: item.point
+            })) || []
+        })
+
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        const { id, value } = e.target;
-        setValues(values => ({
-            ...values,
-            [id]: value,
-        }));
+        const { id, value } = e.target; e.target.id
+        setData(id as TFormInputID, value);
     }
 
     const handleSubChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const key = e.target.name as keyof typeof values.subStudySubjects[0];
+        const key = e.target.name as keyof TSubStudySubject;
         const value = e.target.name === 'point' ? parseInt(e.target.value) : e.target.value;
-        const subStudySubjects = [...values.subStudySubjects];
-        subStudySubjects[index][key] = value as never;
-        setValues(values => ({
-            ...values,
-            subStudySubjects
-        }));
+        const sub_study_subjects: TSubStudySubject[] = data.sub_study_subjects ? [...data.sub_study_subjects] : [] as TSubStudySubject[];
+        (sub_study_subjects[index] as any)[key] = value;
+        sub_study_subjects[index]['study_subject_id'] = studySubjectId !== null ? +studySubjectId : null;
+
+        setData('sub_study_subjects', sub_study_subjects);
     };
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        setProcessing(true)
-        console.log(values)
-        router.post('/dashboard/study-subject/add', values)
+        // setProcessing(true)
+        if (studySubjectId === null) {
+            router.post('/dashboard/study-subject/add', data)
+            console.log('add here!!')
+            console.log(data)
+
+        } else {
+            router.post('/dashboard/study-subject/edit/' + studySubjectId, data)
+            console.log('edit here!!')
+            console.log(data)
+
+        }
     }
 
     return (
@@ -64,8 +79,6 @@ export default function StudySubjectForm(
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                     Tambah Kegiatan
                 </p>
-
-                {/* {JSON.stringify(values)} */}
             </header>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-6">
@@ -75,8 +88,8 @@ export default function StudySubjectForm(
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
-                        value={values.name} onChange={handleChange}
-                        required
+                        value={data?.name} onChange={handleChange}
+                        // required
                         isFocused
                         autoComplete="off"
                     />
@@ -90,9 +103,9 @@ export default function StudySubjectForm(
                     <TextAreaInput
                         id="description"
                         className="mt-1 block w-full"
-                        value={values.description}
+                        value={data?.description}
                         onChange={handleChange}
-                        required
+                        // required
                         isFocused
                         autoComplete="off"
                     />
@@ -107,9 +120,9 @@ export default function StudySubjectForm(
                     <TextInput
                         id="point"
                         className="mt-1 block w-full"
-                        value={values.point}
+                        value={data?.point}
                         onChange={handleChange}
-                        required
+                        // required
                         isFocused
                         autoComplete="off"
                     />
@@ -120,35 +133,38 @@ export default function StudySubjectForm(
                 <div className="flex flex-col items-end gap-4 mt-4">
                     <PrimaryButton type="button" onClick={(e) => {
                         e.preventDefault();
-                        setValues(values => ({
-                            ...values,
-                            subStudySubjects: [
-                                ...values.subStudySubjects,
-                                { name: '', description: '', point: 0 }
+
+                        setData(prev => ({
+                            ...prev,
+                            sub_study_subjects: [
+                                ...(prev.sub_study_subjects || []), // Initialize as an empty array if undefined
+                                { id: null, name: '', description: '', point: 0 }
                             ]
                         }));
+
+
                     }}>+ Tambah Sub kegiatan</PrimaryButton>
                 </div>
 
-                {values.subStudySubjects.length > 0 && (
+                {data?.sub_study_subjects && data?.sub_study_subjects.length > 0 && (
                     <>
-                        {values.subStudySubjects.map((item, index) => {
+                        {data.sub_study_subjects.map((item: Partial<TStudySubject>, index: number) => {
                             return (
-
                                 <div key={index}>
                                     <div className="flex align-middle items-center justify-between">
                                         <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                            Sub Kegiatan
+                                            Sub Kegiatan #{index + 1}
                                         </h2>
 
                                         <button className="text-red-600" onClick={(e) => {
                                             e.preventDefault()
-                                            setValues(values => ({
-                                                ...values,
-                                                subStudySubjects: values.subStudySubjects.filter((_, i) => i !== index)
+                                            setData(prev => ({
+                                                ...prev,
+                                                sub_study_subjects: (prev.sub_study_subjects || []).filter((_, i) => i !== index)
                                             }))
                                         }}>Hapus</button>
                                     </div>
+
                                     <InputLabel className="mt-2" htmlFor={`sub-name-${index}`} value="Nama Sub Judul" />
                                     <TextInput
                                         id={`sub-name-${index}`}
@@ -166,7 +182,7 @@ export default function StudySubjectForm(
                                         className="mt-1 block w-full"
                                         value={item.description}
                                         onChange={(e) => handleSubChange(index, e)}
-                                        required
+                                        // required
                                         autoComplete="off"
                                     />
                                     <InputLabel className="mt-2" htmlFor={`sub-point-${index}`} value="Nilai Sub Judul" />
@@ -187,7 +203,7 @@ export default function StudySubjectForm(
                 )}
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton type="submit" disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton type="submit" disabled={false}>Save</PrimaryButton>
                 </div>
             </form>
         </section>
