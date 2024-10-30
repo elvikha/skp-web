@@ -12,12 +12,33 @@ use Illuminate\Support\Facades\Log;
 
 class StudySubjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $studySubjects = StudySubject::with('subStudySubjects')->get();
+        $query = StudySubject::query();
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        }
+
+        // $studySubjects = StudySubject::with('subStudySubjects')->get();
+        $studySubjects = $query->with('subStudySubjects')->get();
 
         return Inertia::render('StudySubject/Index', [
             'studySubjects' => $studySubjects,
+            'search' => $request->input('search', ''),
+            'flash' => [
+                'success' => session('success'),
+            ],
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $studySubjects = StudySubject::where('name', 'like', '%' . $request->input('search') . '%')->with('subStudySubjects')->get();
+
+        return Inertia::render('StudySubject/Index', [
+            'studySubjects' => $studySubjects,
+            'search' => $request->input('search', ''),
             'flash' => [
                 'success' => session('success'),
             ],
