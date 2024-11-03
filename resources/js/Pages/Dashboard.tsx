@@ -1,7 +1,96 @@
+import Alert from '@/Components/Alert';
+import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
+import { ReactNode, useState } from 'react';
 
-export default function Dashboard() {
+interface Report {
+    study_subject: string;
+    sub_study_subject: string;
+    point: number;
+    sub_point: number;
+    status: string;
+}
+
+const TableStudent = ({ reports }: { reports: Partial<Report[]> }) => {
+    return (
+        <>
+            <PrimaryButton type="button" onClick={(e) => {
+                router.visit('/dashboard/study-subject/add')
+            }}>+ Lapor Kegiatan</PrimaryButton>
+            <table className="w-full mt-4 border">
+                <thead className='border bg-slate-700 text-white'>
+                    <tr>
+                        <th className="text-center p-2">No</th>
+                        <th className="text-center p-2">Kegiatan</th>
+                        <th className="text-center p-2">Point</th>
+                        <th className="text-center p-2">Status</th>
+                        <th className="text-center p-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {reports ? reports.map((report: any, i: number) => {
+                        return (
+                            <tr key={report.study_subject + '-' + i}>
+                                <td className="text-center p-2">{i + 1}</td>
+                                <td className="p-2"><b>{report.study_subject}</b> - {report.sub_study_subject}</td>
+                                <td className="text-center p-2">{+report.point > 0 ? report.point : report.sub_point}</td>
+                                <td className="text-center p-2">{report.status}</td>
+                                <td className="text-center p-2 flex justify-center items-center gap-4">
+                                    <button className="bg-transparent cursor-pointer" type="button" onClick={(e) => {
+                                        router.visit(`/dashboard/report/edit/${report?.user_id}`)
+                                    }}>Edit</button>
+
+                                    <button className="bg-transparent cursor-pointer text-red-600" type="button" onClick={(e) => {
+                                        router.visit(`/dashboard/report/delete/${report?.user_id}`)
+                                    }}>Delete</button>
+                                </td>
+                            </tr>
+                        )
+                    }) : 'No data'}
+                </tbody>
+            </table>
+        </>
+    )
+}
+
+const TableExaminer = ({ reports }: { reports: Partial<Report[]> }) => {
+    return (
+        <table className="w-full mt-4 border">
+            <thead className='border bg-slate-700 text-white'>
+                <tr>
+                    <th className="text-center p-2">No</th>
+                    <th className="text-center p-2">Nama Mahasiswa</th>
+                    <th className="text-center p-2">NIM</th>
+                    <th className="text-center p-2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {reports ? reports.map((report: any, i: number) => {
+                    return (
+                        <tr key={report.study_subject + '-' + i}>
+                            <td className="text-center p-2">{i + 1}</td>
+                            <td className="text-center p-2">{report?.user_name}</td>
+                            <td className="text-center p-2">{report?.identification_number}</td>
+                            <td className="text-center p-2 flex justify-center items-center gap-4">
+                                <button className="bg-transparent cursor-pointer text-blue-500" type="button" onClick={(e) => {
+                                    router.visit(`/dashboard/report/examine/${report?.user_id}`)
+                                }}>Periksa</button>
+                            </td>
+                        </tr>
+                    )
+                }) : 'No data'}
+            </tbody>
+        </table>
+    )
+}
+
+export default function Dashboard({ reports }) {
+    const { flash } = usePage().props;
+    const [showAlert, setShowAlert] = useState(flash.error || flash.success);
+    const user = usePage().props.auth.user;
+    const isEditAuthorized = user?.status > 1 // Student or Lecturer
+
     return (
         <AuthenticatedLayout
             header={
@@ -15,8 +104,16 @@ export default function Dashboard() {
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+                        {showAlert && (
+                            <Alert type={flash.error ? 'error' : 'success'} message={flash.error || flash.success} onClose={() => {
+                                setShowAlert(false)
+                            }} />
+                        )}
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            You're logged in!
+                            {/* {JSON.stringify(reports)} */}
+                            <h2 className='font-bold text-3xl mb-8'>Selamat Datang, <i>{user?.name}</i></h2>
+
+                            {isEditAuthorized ? <TableExaminer reports={reports} /> : <TableStudent reports={reports} />}
                         </div>
                     </div>
                 </div>

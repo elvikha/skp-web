@@ -33,7 +33,7 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
         </h2>
       }
     >
-      <Head title="StudySubject" />
+      <Head title="Kegiatan" />
 
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -73,13 +73,13 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
               }}>+ Tambah</PrimaryButton>
 
               <table className="w-full mt-4 border">
-                <thead className='border'>
+                <thead className='border bg-slate-700 text-white'>
                   <tr>
-                    <th className="text-center">ID</th>
-                    <th className="text-center">Name</th>
-                    <th className="text-center">Point</th>
-                    <th className="text-center">Description</th>
-                    <th className="text-center">Action</th>
+                    <th className="text-center p-2">ID</th>
+                    <th className="text-center p-2">Name</th>
+                    <th className="text-center p-2">Point</th>
+                    <th className="text-center p-2">Description</th>
+                    <th className="text-center p-2">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -112,13 +112,13 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
                       <td className="text-center">{studySubject.description}</td>
 
                       <td className="text-center flex items-center justify-center gap-3 h-28">
-                        <button className="bg-transparent cursor-pointer" type="button" onClick={(e) => {
+                        <button className="bg-transparent cursor-pointer text-blue-500" type="button" onClick={(e) => {
                           router.visit(`/dashboard/study-subject/edit/${studySubject.id}`)
-                        }}>Edit</button>
+                        }}>Ubah</button>
 
                         <button className="bg-transparent cursor-pointer text-red-600" type="button" onClick={(e) => {
                           router.visit(`/dashboard/study-subject/delete/${studySubject.id}`)
-                        }}>Delete</button>
+                        }}>Hapus</button>
                       </td>
                     </tr>
                   ))}

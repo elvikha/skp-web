@@ -14,4 +14,9 @@ class StudySubject extends Model
     {
         return $this->hasMany(SubStudySubject::class);
     }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
 }

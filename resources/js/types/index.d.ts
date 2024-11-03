@@ -7,7 +7,13 @@ export interface User {
     email_verified_at?: string;
     phone_number: string;
     identification_number: string;
-    status: string;
+    status: Status;
+}
+
+enum Status {
+    Student = 1,
+    Lecturer = 2,
+    Admin = 3,
 }
 
 export type PageProps<
