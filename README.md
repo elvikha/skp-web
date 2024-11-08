@@ -2,9 +2,9 @@
 
 ### Table users
 id | name                | email                       | password | phone_number | identification_number | status  |
-1  | fujianto            | cuteoliv@gmail.com          | -zz      | 085717906500 | 1400586977            | 1       |
-3  | Elvi Khairunnisa    | elivikhairunnisa@gmail.com  | ad       | 080917864322 | 100073630434          | 2      |
-4  | Game Master         | admin@naisinpo.com          | ad       | 080917864322 | 110073630434          | 3       |
+1  | fujianto            | cuteo@gmail.com          | -zz      | 085717906500 | 1400586977            | 1       |
+3  | Elvi Khairunnisa    | elivi@xmail.com  | ad       | 080917864322 | 100073630434          | 2      |
+4  | Game Master         | admin@xaisinpo.com          | ad       | 080917864322 | 110073630434          | 3       |
 
 ### Table study_subjects
 id | name          | description      | point | 
