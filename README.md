@@ -1,66 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## SKP Web
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Table users
+id | name                | email                       | password | phone_number | identification_number | status  |
+1  | fujianto            | cuteoliv@gmail.com          | -zz      | 085717906500 | 1400586977            | 1       |
+3  | Elvi Khairunnisa    | elivikhairunnisa@gmail.com  | ad       | 080917864322 | 100073630434          | 2      |
+4  | Game Master         | admin@naisinpo.com          | ad       | 080917864322 | 110073630434          | 3       |
 
-## About Laravel
+### Table study_subjects
+id | name          | description      | point | 
+31 | Physics       | brainiac         | 0     | 
+32 | Sports        | sporty           | 20    |   
+33 | Kimia         |                  | 0     |   
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Table sub_study_subjects
+id | name         | study_subject_id | description       | point | 
+49 | Advance      |        31        | brainiac  2       | 40    | 
+50 | Beginner     |        31        | sporty   1        | 10    |   
+51 | Teori        |        33        | sporty   1        | 10    |   
+52 | Terapan      |        33        | sporty   1        | 10    |   
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Table reports
+id | user_id    | study_subject_id       | sub_study_subject_id | status | attachment | examiner_id |
+1 | 4           | 31                     | 49                   |  0     |   doc.pdf  |  2          |
+2 | 1           | 33                     | 52                   |  1     | mine.pdf   |   2         |
+3 | 1           | 32                     | null                 |  1     | bio.pdf    |     2       |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### results
+user_id      |  user_name    | identification_number | examiner_name    |
+4       | Game Master   | 110073630434          | Elvi Khairunnisa |
+1       | fujianto      | 1400586977            | Elvi Khairunnisa |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+user_id |  user_name    | study_subject | sub_study_subject | point | sub_point | status     | attachment    |
+1       |  fujianto     | Sports        |                   |  20   |           |   1        |   mine.pdf    |
+1       |  fujianto     | Physics       | Advance           |       |  40       |   1        |   mine.pdf    | 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+id      |  user_name    | identification_number | study_subject | sub_study_subject | point | sub_point | status     | attachment    | examiner_name    |
+1       | Game Master   | 110073630434          | Physics       | Advance           | 0     |  31       | 0          | doc.pdf       | Elvi Khairunnisa |
+1       | fujianto      | 1400586977            | Kimia         | Advance           | 0     |  31       | 1          | mine.pdf      | Elvi Khairunnisa |
+1       | fujianto      | 1400586977            | Sports        |                   | 20    |  0        | 1          | bio.pdf       | Elvi Khairunnisa |
 
-## Laravel Sponsors
+SELECT 
+    r.id AS report_id,
+    u.name AS user_name,
+    u.identification_number,
+    ss.name AS study_subject,
+    sss.name AS sub_study_subject,
+    ss.point AS point,
+    sss.point AS sub_point,
+    r.status,
+    r.attachment,
+    e.name AS examiner_name
+FROM 
+    reports r
+JOIN 
+    users u ON r.user_id = u.id
+JOIN 
+    study_subjects ss ON r.study_subject_id = ss.id
+LEFT JOIN 
+    sub_study_subjects sss ON r.sub_study_subject_id = sss.id
+JOIN 
+    users e ON r.examiner_id = e.id
+WHERE 
+    r.examiner_id = 3;
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+### Table study_subjects
+id | name          | description      | point | 
+31 | Physics       | brainiac         | 0     | 
+32 | Sports        | sporty           | 20    |   
+33 | Kimia         |                  | 0     |   
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Table sub_study_subjects
+id | name         | study_subject_id | description       | point | 
+49 | Advance      |        31        | brainiac  2       | 40    | 
+50 | Beginner     |        31        | sporty   1        | 10    |   
+51 | Teori        |        33        | sporty   1        | 10    |   
+52 | Terapan      |        33        | sporty   1        | 10    |   
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[
+   {
+     study_subjects_id: 31,
+     study_subjects_name: 'Physics',
+     description: 'brainiac',
+     point: 0,
+     sub_study_subjects: [
+        {
+            sub_study_subjects_id: 49,
+            sub_study_subjects_name: 'Advance',
+            description: 'brainiac 2',
+            point: 40,
+        },
+         {
+            sub_study_subjects_id: 50,
+            sub_study_subjects_name: 'Beginner',
+            description: 'sporty 1',
+            point: 10,
+        }
+     ]
+   },
+   {
+     study_subjects_id: 33,
+     study_subjects_name: 'Sports',
+     description: 'sporty',
+     point: 20,
+     sub_study_subjects: []
+   },
+   {
+     study_subjects_id: 31,
+     study_subjects_name: 'Kimia',
+     description: 'brainiac',
+     point: 0,
+     sub_study_subjects: [
+        {
+            sub_study_subjects_id: 51,
+            sub_study_subjects_name: 'Teori',
+            description: 'sporty   1',
+            point: 10,
+        },
+         {
+            sub_study_subjects_id: 52,
+            sub_study_subjects_name: 'Terapan',
+            description: 'sporty 1',
+            point: 10,
+        }
+     ]
+   },
+]

@@ -12,7 +12,8 @@ class StudySubject extends Model
 
     public function subStudySubjects()
     {
-        return $this->hasMany(SubStudySubject::class);
+        // return $this->hasMany(SubStudySubject::class);
+        return $this->hasMany(SubStudySubject::class, 'study_subject_id');
     }
 
     public function reports()

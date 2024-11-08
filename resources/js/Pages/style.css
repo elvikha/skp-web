@@ -1,0 +1,65 @@
+.point_card {
+    background-color: #f9fafb;
+    /* Light background color */
+    border: 1px solid #e5e7eb;
+    /* Light border color */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 16px;
+    /* Padding inside the card */
+    margin-top: 16px;
+    /* Margin at the top */
+    text-align: left;
+    /* Centered left */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    width: 30%;
+}
+
+.point_card.card-red {
+    background-color: #ed5166;
+    border-color: #c92c41;
+}
+
+.point_card.card-yellow {
+    background-color: #edb651;
+    border-color: #c28921;
+}
+
+.point_card.card-green {
+    background-color: #289e63;
+    border-color: #12a633;
+}
+
+.point_card.card-red .title, .point_card.card-red .subtitle, .point_card.card-red .point,
+.point_card.card-yellow .title, .point_card.card-yellow .subtitle, .point_card.card-yellow .point,
+.point_card.card-green .title, .point_card.card-green .subtitle, .point_card.card-green .point {
+    color: #fff;
+}
+
+.point_card .title {
+    font-size: 1.5rem;
+    /* Large font size */
+    font-weight: bold;
+    /* Bold text */
+    color: #1f2937;
+    /* Dark text color */
+    margin-bottom: 8px;
+    /* Space below the title */
+}
+
+.point_card .subtitle {
+    font-size: 1.25rem;
+    /* Medium font size */
+    color: #4b5563;
+    /* Medium text color */
+    margin-bottom: 8px;
+    /* Space below the subtitle */
+}
+
+.point_card .point {
+    font-size: 1rem;
+    /* Normal font size */
+    color: #6b7280;
+    /* Light text color */
+}
