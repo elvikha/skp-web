@@ -199,6 +199,8 @@ export default function StudySubjectForm(
                                 </div>
                             )
                         })}
+
+                        <hr className='mt-5' />
                     </>
                 )}
 
