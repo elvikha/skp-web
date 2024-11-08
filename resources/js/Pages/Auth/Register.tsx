@@ -14,7 +14,7 @@ export default function Register() {
         password_confirmation: '',
         phone_number: '',
         identification_number: '',
-        status: '',
+        status: 1,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -151,7 +151,7 @@ export default function Register() {
                         placeholder='Mahasiswa 1 / Dosen 2 / Admin 3'
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        onChange={(e) => setData('status', e.target.value)}
+                        onChange={(e) => setData('status', +e.target.value)}
                         required
                     />
 

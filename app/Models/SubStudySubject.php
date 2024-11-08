@@ -12,6 +12,7 @@ class SubStudySubject extends Model
 
     public function studySubject()
     {
-        return $this->belongsTo(StudySubject::class);
+        // return $this->belongsTo(StudySubject::class);
+        return $this->belongsTo(StudySubject::class, 'study_subject_id');
     }
 }

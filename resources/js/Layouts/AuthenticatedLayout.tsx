@@ -14,6 +14,7 @@ export default function Authenticated({
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+    const isEditAuthorized = user?.status > 1
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
             <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -34,12 +35,13 @@ export default function Authenticated({
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink
+                                {isEditAuthorized ? <NavLink
                                     href={route('studySubject')}
                                     active={route().current('studySubject')}
                                 >
                                     Kegiatan
-                                </NavLink>
+                                </NavLink> : ''}
+
                             </div>
                         </div>
 

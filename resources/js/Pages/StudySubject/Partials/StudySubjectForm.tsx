@@ -24,7 +24,7 @@ export default function StudySubjectForm(
     type TFormInputID = "name" | "description" | "point" | "sub_study_subjects";
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm<TStudySubject>({
+        useForm<Partial<TStudySubject>>({
             name: studySubject?.name || "",
             description: studySubject?.description || "",
             point: studySubject?.point || 0,
