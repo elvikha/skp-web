@@ -171,54 +171,37 @@ export default function ReportForm({
                             })) || []
 
                         return (
-                            <div key={index} className="space-y-4">
-                                <div>
-                                    <header className="mt-6">
-                                        <div className="flex align-middle items-center justify-between">
-                                            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Kegiatan #{index + 1}</h2>
-
-                                            {data && data.length > 1 ? (
-                                                <button onClick={(e) => {
-                                                    e.preventDefault()
-                                                    setData(data.filter((_, i) => i !== index))
-                                                }} className="text-red-600">Hapus</button>
-                                            ) : null}
-                                        </div>
-                                    </header>
-
-                                    <label htmlFor={`study_subject_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Study Subject
-                                    </label>
-                                    <SelectInput
-                                        id={`study_subject_${index}`}
-                                        name={`study_subject_${index}`}
-                                        options={(studySubjects || [])
-                                            .filter(studySubject => studySubject.study_subjects_id !== null && studySubject.study_subjects_id !== undefined)
-                                            .map((studySubject) => ({
-                                                id: studySubject.study_subjects_id as number,
-                                                name: studySubject.study_subjects_name,
-                                                point: studySubject.point,
-                                            }))}
-                                        value={report.study_subject_id?.toString() || ''}
-                                        onChange={(e) => handleChange(index, 'study_subject_id', parseInt(e.target.value))}
-                                        renderOption={(option) => (
-                                            <option key={option.id} value={option.id}>
-                                                {option.name} {JSON.stringify(option)}
-                                            </option>
-                                        )}
-                                    />
-                                </div>
-                                {optionsSubStudySubject.length > 0 ? (
+                            <>
+                                <div key={index} className="space-y-4">
                                     <div>
-                                        <label htmlFor={`sub_study_subject_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                            Sub Study Subject
+                                        <header className="mt-6">
+                                            <div className="flex align-middle items-center justify-between">
+                                                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Kegiatan #{index + 1}</h2>
+
+                                                {data && data.length > 1 ? (
+                                                    <button onClick={(e) => {
+                                                        e.preventDefault()
+                                                        setData(data.filter((_, i) => i !== index))
+                                                    }} className="text-red-600">Hapus</button>
+                                                ) : null}
+                                            </div>
+                                        </header>
+
+                                        <label htmlFor={`study_subject_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Study Subject
                                         </label>
                                         <SelectInput
-                                            id={`sub_study_subject_${index}`}
-                                            name={`sub_study_subject_${index}`}
-                                            options={optionsSubStudySubject}
-                                            value={report.sub_study_subject_id?.toString() || ''}
-                                            onChange={(e) => handleChange(index, 'sub_study_subject_id', parseInt(e.target.value))}
+                                            id={`study_subject_${index}`}
+                                            name={`study_subject_${index}`}
+                                            options={(studySubjects || [])
+                                                .filter(studySubject => studySubject.study_subjects_id !== null && studySubject.study_subjects_id !== undefined)
+                                                .map((studySubject) => ({
+                                                    id: studySubject.study_subjects_id as number,
+                                                    name: studySubject.study_subjects_name,
+                                                    point: studySubject.point,
+                                                }))}
+                                            value={report.study_subject_id?.toString() || ''}
+                                            onChange={(e) => handleChange(index, 'study_subject_id', parseInt(e.target.value))}
                                             renderOption={(option) => (
                                                 <option key={option.id} value={option.id}>
                                                     {option.name}
@@ -226,30 +209,32 @@ export default function ReportForm({
                                             )}
                                         />
                                     </div>
-                                ) : null}
+                                    {optionsSubStudySubject.length > 0 ? (
+                                        <div>
+                                            <label htmlFor={`sub_study_subject_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                Sub Study Subject
+                                            </label>
+                                            <SelectInput
+                                                id={`sub_study_subject_${index}`}
+                                                name={`sub_study_subject_${index}`}
+                                                options={optionsSubStudySubject}
+                                                value={report.sub_study_subject_id?.toString() || ''}
+                                                onChange={(e) => handleChange(index, 'sub_study_subject_id', parseInt(e.target.value))}
+                                                renderOption={(option) => (
+                                                    <option key={option.id} value={option.id}>
+                                                        {option.name}
+                                                    </option>
+                                                )}
+                                            />
+                                        </div>
+                                    ) : null}
 
 
-                                <div>
-                                    <label htmlFor={`status_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Status
-                                    </label>
-                                    <select
-                                        id={`status_${index}`}
-                                        name={`status_${index}`}
-                                        value={report.status}
-                                        onChange={(e) => handleChange(index, 'status', e.target.value)}
-                                        className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 mt-1 block w-full"
-                                    >
-                                        <option value={StatusReport.Waiting}>Waiting</option>
-                                        {/* <option value={StatusReport.Approved}>Approved</option> */}
-                                        {/* <option value={StatusReport.Rejected}>Rejected</option> */}
-                                    </select>
-                                </div>
-                                <div>
-                                    <label htmlFor={`attachment_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Attachment
-                                    </label>
-                                    {/* <input
+                                    <div>
+                                        <label htmlFor={`attachment_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Attachment
+                                        </label>
+                                        {/* <input
                                         type="text"
                                         id={`attachment_${index}`}
                                         name={`attachment_${index}`}
@@ -258,31 +243,50 @@ export default function ReportForm({
                                         className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 mt-1 block w-full"
                                     /> */}
 
-                                    <input
-                                        type="file"
-                                        id={`attachment_${index}`}
-                                        name={`attachment_${index}`}
-                                        accept=".pdf,.ppt,.zip,.docx"
-                                        onChange={(e) => handleFileChange(index, e)}
-                                        className="attachment-uploader"
-                                    />
-                                </div>
+                                        <input
+                                            type="file"
+                                            id={`attachment_${index}`}
+                                            name={`attachment_${index}`}
+                                            accept=".pdf,.ppt,.zip,.docx"
+                                            onChange={(e) => handleFileChange(index, e)}
+                                            className="attachment-uploader"
+                                        />
+                                    </div>
 
-                                <div>
-                                    <label htmlFor={`examiner_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Dosen Pembimbing
-                                    </label>
-                                    <select
-                                        id={`examiner_${index}`}
-                                        name={`examiner_${index}`}
-                                        value={report.examiner_id?.toString() || ''}
-                                        onChange={(e) => handleChange(index, 'status', e.target.value)}
-                                        className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 mt-1 block w-full"
-                                    >
-                                        <option value={3}>Elvi Khairunnisa M.SI</option>
-                                    </select>
+                                    <div>
+                                        <label htmlFor={`examiner_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Dosen Pembimbing
+                                        </label>
+                                        <select
+                                            id={`examiner_${index}`}
+                                            name={`examiner_${index}`}
+                                            value={report.examiner_id?.toString() || ''}
+                                            onChange={(e) => handleChange(index, 'status', e.target.value)}
+                                            className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 mt-1 block w-full"
+                                        >
+                                            <option value={3}>Elvi Khairunnisa M.SI</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor={`status_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                            Status
+                                        </label>
+                                        <select
+                                            id={`status_${index}`}
+                                            name={`status_${index}`}
+                                            value={report.status}
+                                            onChange={(e) => handleChange(index, 'status', e.target.value)}
+                                            className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 mt-1 block w-full"
+                                        >
+                                            <option value={StatusReport.Waiting}>Waiting</option>
+                                            {/* <option value={StatusReport.Approved}>Approved</option> */}
+                                            {/* <option value={StatusReport.Rejected}>Rejected</option> */}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
+                                <hr className="mt-7" />
+                            </>
                         )
                     })}
                 </div>

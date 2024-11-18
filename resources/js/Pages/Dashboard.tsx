@@ -54,7 +54,7 @@ const PointCard = ({ className = '', totalPoint, requiredPassingPoint = 250 }: {
 
     return (
         <div className={`point_card ${className} ${getSKPCardStyling(totalPoint, requiredPassingPoint)}`}>
-            <h2 className="title">{isPassingSKP(totalPoint, requiredPassingPoint) ? 'Boleh Sidang' : 'Tidak Boleh Sidang'}</h2>
+            <h2 className="title">{isPassingSKP(totalPoint, requiredPassingPoint) ? 'Boleh Sidang' : 'Belum Boleh Sidang'}</h2>
             <h2 className="subtitle">{calculatePercentage(totalPoint, requiredPassingPoint)}%</h2>
             <h3 className="point">Poin SKP: {totalPoint} / {requiredPassingPoint}</h3>
         </div>

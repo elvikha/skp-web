@@ -1,6 +1,7 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import SelectInput from '@/Components/SelectInput';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
@@ -143,7 +144,7 @@ export default function Register() {
                 <div className="mt-4">
                     <InputLabel htmlFor="status" value="Status" />
 
-                    <TextInput
+                    {/* <TextInput
                         id="status"
                         type="text"
                         name="status"
@@ -153,6 +154,19 @@ export default function Register() {
                         autoComplete="username"
                         onChange={(e) => setData('status', +e.target.value)}
                         required
+                    /> */}
+
+                    <SelectInput
+                        id="status"
+                        name="status"
+                        value={`${data.status}`}
+                        options={[{ id: 1, name: 'Mahasiswa' }, { id: 2, name: 'Dosen' }, { id: 3, name: 'Admin' }]}
+                        onChange={(e) => setData('status', +e.target.value)}
+                        renderOption={(option) => (
+                            <option key={option.id} value={option.id}>
+                                {option.name}
+                            </option>
+                        )}
                     />
 
                     <InputError message={errors.status} className="mt-2" />
