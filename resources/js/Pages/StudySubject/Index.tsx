@@ -75,17 +75,17 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
               <table className="w-full mt-4 border">
                 <thead className='border bg-slate-700 text-white'>
                   <tr>
-                    <th className="text-center p-2">ID</th>
-                    <th className="text-center p-2">Name</th>
-                    <th className="text-center p-2">Point</th>
-                    <th className="text-center p-2">Description</th>
-                    <th className="text-center p-2">Action</th>
+                    <th className="text-center p-2">No</th>
+                    <th className="text-center p-2">Nama</th>
+                    <th className="text-center p-2">Nilai</th>
+                    <th className="text-center p-2">Deskripsi</th>
+                    <th className="text-center p-2">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {studySubjects && studySubjects.map((studySubject: TSubStudySubject) => (
+                  {studySubjects && studySubjects.map((studySubject: TSubStudySubject, index) => (
                     <tr className='border' key={studySubject.id}>
-                      <td className="text-center">{studySubject.id}</td>
+                      <td className="text-center">{index + 1}</td>
                       <td className="text-left">
                         <b>{studySubject.name}</b>
                         <ul className='pl-6'>
@@ -109,7 +109,7 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
                           );
                         })}
                       </td>
-                      <td className="text-center">{studySubject.description}</td>
+                      <td className="text-center text-xs w-[30%]">{studySubject.description}</td>
 
                       <td className="text-center flex items-center justify-center gap-3 h-28">
                         <button className="bg-transparent cursor-pointer text-blue-500" type="button" onClick={(e) => {
