@@ -46,9 +46,9 @@ const TableStudentDetail = ({ reports }: { reports: Partial<Report[]> }) => {
                 <tr>
                     <th className="text-center p-2">No</th>
                     <th className="text-center p-2">Kegiatan</th>
-                    <th className="text-center p-2">Point</th>
+                    <th className="text-center p-2">Nilai</th>
                     <th className="text-center p-2">Attachment</th>
-                    <th className="text-center p-2">Action</th>
+                    <th className="text-center p-2">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,8 +58,8 @@ const TableStudentDetail = ({ reports }: { reports: Partial<Report[]> }) => {
 
                     return (
                         <tr key={report.study_subject + '-' + i}>
-                            <td className="text-center p-2">{report?.id}</td>
-                            <td className="text-center p-2"><b>{report?.study_subject}</b> : {report?.sub_study_subject}</td>
+                            <td className="text-center p-2">{i + 1}</td>
+                            <td className="text-left p-2"><b>{report?.study_subject}</b> : {report?.sub_study_subject}</td>
                             <td className="text-center p-2">{report?.point > 0 ? report?.point : report?.sub_point}</td>
                             <td className="text-center p-2">
                                 {report?.attachment ? (
