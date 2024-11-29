@@ -109,7 +109,7 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
                           );
                         })}
                       </td>
-                      <td className="text-center text-xs w-[30%]">{studySubject.description}</td>
+                      <td className="text-left text-xs w-[30%]">{studySubject.description}</td>
 
                       <td className="text-center flex items-center justify-center gap-3 h-28">
                         <button className="bg-transparent cursor-pointer text-blue-500" type="button" onClick={(e) => {
