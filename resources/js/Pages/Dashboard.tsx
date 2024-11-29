@@ -80,7 +80,7 @@ const TableStudent = ({ reports }: { reports: Partial<Report[]> }) => {
                     <tr>
                         <th className="text-center p-2">No</th>
                         <th className="text-center p-2">Kegiatan</th>
-                        <th className="text-center p-2">Point</th>
+                        <th className="text-center p-2">Nilai</th>
                         <th className="text-center p-2">Status</th>
                         <th className="text-center p-2">Action</th>
                     </tr>
@@ -94,9 +94,10 @@ const TableStudent = ({ reports }: { reports: Partial<Report[]> }) => {
                                 <td className="text-center p-2">{+report.point > 0 ? report.point : report.sub_point}</td>
                                 <td className={`text-center p-2 ${report.status === '0' ? 'text-yellow-600' : ''}  ${report.status === '1' ? 'text-green-600' : ''} ${report.status === '2' ? 'text-red-600' : ''}`}>{getStatus(report.status)}</td>
                                 <td className="text-center p-2 flex justify-center items-center gap-4">
+                                    {report.status !== '1' ? 
                                     <button className="bg-transparent cursor-pointer text-red-600" type="button" onClick={(e) => {
                                         router.visit(`/dashboard/report/delete/${report?.id}`)
-                                    }}>Delete</button>
+                                    }}>Delete</button> : ''}
                                 </td>
                             </tr>
                         )
