@@ -4,6 +4,7 @@ import { TStudySubject, TSubStudySubject } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import Alert from '@/Components/Alert';
 import React, { useState } from 'react';
+import './style.css'
 
 export default function StudySubject({ studySubjects, search = '' }: { studySubjects: TSubStudySubject[], search: string }) {
   const { flash } = usePage().props;
