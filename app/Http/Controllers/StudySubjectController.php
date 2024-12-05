@@ -78,11 +78,11 @@ class StudySubjectController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:1000',
             'point' => 'nullable|integer',
             'sub_study_subjects' => 'array',
             'sub_study_subjects.*.name' => 'string|max:255',
-            'sub_study_subjects.*.description' => 'nullable|string|max:255',
+            'sub_study_subjects.*.description' => 'nullable|string|max:1000',
             'sub_study_subjects.*.point' => 'integer',
         ]);
 
@@ -106,12 +106,12 @@ class StudySubjectController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:1000',
             'point' => 'nullable|integer',
             'sub_study_subjects' => 'array',
             'sub_study_subjects.*.study_subject_id' => 'integer',
             'sub_study_subjects.*.name' => 'string|max:255',
-            'sub_study_subjects.*.description' => 'nullable|string|max:255',
+            'sub_study_subjects.*.description' => 'nullable|string|max:1000',
             'sub_study_subjects.*.point' => 'integer',
         ]);
 

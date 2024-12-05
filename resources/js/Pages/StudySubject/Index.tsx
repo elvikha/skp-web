@@ -4,6 +4,7 @@ import { TStudySubject, TSubStudySubject } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import Alert from '@/Components/Alert';
 import React, { useState } from 'react';
+import './style.css'
 
 export default function StudySubject({ studySubjects, search = '' }: { studySubjects: TSubStudySubject[], search: string }) {
   const { flash } = usePage().props;
@@ -75,18 +76,18 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
               <table className="w-full mt-4 border">
                 <thead className='border bg-slate-700 text-white'>
                   <tr>
-                    <th className="text-center p-2">ID</th>
-                    <th className="text-center p-2">Name</th>
-                    <th className="text-center p-2">Point</th>
-                    <th className="text-center p-2">Description</th>
-                    <th className="text-center p-2">Action</th>
+                    {/* <th className="text-center p-2">ID</th> */}
+                    <th className="text-center p-2">Nama</th>
+                    <th className="text-center p-2">Poin</th>
+                    <th className="text-center p-2">Deskripsi</th>
+                    <th className="text-center p-2">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {studySubjects && studySubjects.map((studySubject: TSubStudySubject) => (
                     <tr className='border' key={studySubject.id}>
-                      <td className="text-center">{studySubject.id}</td>
-                      <td className="text-left">
+                      {/* <td className="text-center">{studySubject.id}</td> */}
+                      <td className="text-left p-2">
                         <b>{studySubject.name}</b>
                         <ul className='pl-6'>
                           {studySubject.sub_study_subjects && studySubject.sub_study_subjects.map((subStudySubject: TSubStudySubject) => {
@@ -109,7 +110,7 @@ export default function StudySubject({ studySubjects, search = '' }: { studySubj
                           );
                         })}
                       </td>
-                      <td className="text-center">{studySubject.description}</td>
+                      <td className="column-desc">{studySubject.description}</td>
 
                       <td className="text-center flex items-center justify-center gap-3 h-28">
                         <button className="bg-transparent cursor-pointer text-blue-500" type="button" onClick={(e) => {

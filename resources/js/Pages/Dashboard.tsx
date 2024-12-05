@@ -47,7 +47,7 @@ const PointCard = ({ className = '', totalPoint, requiredPassingPoint = 250 }: {
             return 'card-red';
         } else if (+inputNumber === +requiredNumber) {
             return 'card-green';
-        } else if (inputNumber => 200 && inputNumber < 249) {
+        } else if (inputNumber >= 200 && inputNumber < 249) {
             return 'card-yellow';
         }
     }
