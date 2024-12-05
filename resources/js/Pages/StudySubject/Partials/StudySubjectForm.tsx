@@ -89,7 +89,7 @@ export default function StudySubjectForm(
                         id="name"
                         className="mt-1 block w-full"
                         value={data?.name} onChange={handleChange}
-                        // required
+                        required
                         isFocused
                         autoComplete="off"
                     />
@@ -122,7 +122,7 @@ export default function StudySubjectForm(
                         className="mt-1 block w-full"
                         value={data?.point}
                         onChange={handleChange}
-                        // required
+                        required
                         isFocused
                         autoComplete="off"
                     />
@@ -205,7 +205,7 @@ export default function StudySubjectForm(
                 )}
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton type="submit" disabled={false}>Save</PrimaryButton>
+                    <PrimaryButton type="submit" disabled={false}>Simpan</PrimaryButton>
                 </div>
             </form>
         </section>

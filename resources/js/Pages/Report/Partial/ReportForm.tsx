@@ -176,7 +176,7 @@ export default function ReportForm({
                                     <div>
                                         <header className="mt-6">
                                             <div className="flex align-middle items-center justify-between">
-                                                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Kegiatan #{index + 1}</h2>
+                                                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Kegiatan {index + 1}</h2>
 
                                                 {data && data.length > 1 ? (
                                                     <button onClick={(e) => {
@@ -188,11 +188,12 @@ export default function ReportForm({
                                         </header>
 
                                         <label htmlFor={`study_subject_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                            Study Subject
+                                            Kegiatan
                                         </label>
                                         <SelectInput
                                             id={`study_subject_${index}`}
                                             name={`study_subject_${index}`}
+                                            default_select_text="Pilih kegiatan"
                                             options={(studySubjects || [])
                                                 .filter(studySubject => studySubject.study_subjects_id !== null && studySubject.study_subjects_id !== undefined)
                                                 .map((studySubject) => ({
@@ -212,12 +213,13 @@ export default function ReportForm({
                                     {optionsSubStudySubject.length > 0 ? (
                                         <div>
                                             <label htmlFor={`sub_study_subject_${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                                Sub Study Subject
+                                                Sub Kegiatan
                                             </label>
                                             <SelectInput
                                                 id={`sub_study_subject_${index}`}
                                                 name={`sub_study_subject_${index}`}
                                                 options={optionsSubStudySubject}
+                                                 default_select_text="Pilih Sub kegiatan"
                                                 value={report.sub_study_subject_id?.toString() || ''}
                                                 onChange={(e) => handleChange(index, 'sub_study_subject_id', parseInt(e.target.value))}
                                                 renderOption={(option) => (
@@ -264,7 +266,7 @@ export default function ReportForm({
                                             onChange={(e) => handleChange(index, 'status', e.target.value)}
                                             className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 mt-1 block w-full"
                                         >
-                                            <option value={3}>Elvi Khairunnisa M.SI</option>
+                                            <option value={3}>Elvi Khairunnisa, M.Si.</option>
                                         </select>
                                     </div>
 
@@ -279,7 +281,7 @@ export default function ReportForm({
                                             onChange={(e) => handleChange(index, 'status', e.target.value)}
                                             className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600 mt-1 block w-full"
                                         >
-                                            <option value={StatusReport.Waiting}>Waiting</option>
+                                            <option value={StatusReport.Waiting}>Menunggu</option>
                                             {/* <option value={StatusReport.Approved}>Approved</option> */}
                                             {/* <option value={StatusReport.Rejected}>Rejected</option> */}
                                         </select>
