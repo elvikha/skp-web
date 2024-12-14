@@ -3,9 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Middleware\isAuthorized;
-use App\Models\StudySubject;
 use App\Http\Controllers\StudySubjectController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -32,6 +31,7 @@ Route::middleware(['auth', isAuthorized::class])->group(function () {
     Route::get('/dashboard/study-subject/search', [StudySubjectController::class, 'search'])->name('studySubject.search');
     Route::get('/dashboard/student-report/{student_id}', [ReportController::class, 'getStudentReports'])->name('studentReport.view');
     Route::put('/dashboard/student-report/{student_id}', [ReportController::class, 'updateReportStatus'])->name('studentReport.update');
+    Route::get('/dashboard/users', [UserController::class, 'index'])->name('users.index');
 });
 
 
