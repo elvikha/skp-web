@@ -3,6 +3,7 @@
     "type": "module",
     "scripts": {
         "build": "tsc && vite build && vite build --ssr",
+        "buildforce": "vite build && vite build --ssr",
         "dev": "vite"
     },
     "devDependencies": {
