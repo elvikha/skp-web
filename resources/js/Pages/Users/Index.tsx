@@ -1,5 +1,6 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 interface User {
     name: string;
@@ -14,34 +15,51 @@ interface UsersProps {
 }
 
 export default function Users({ users }: UsersProps) {
+    const getStatus = (status: string) => {
+        switch (status) {
+            case '1':
+                return 'Mahasiswa';
+            case '2':
+                return 'Dosen';
+            case '3':
+                return 'Admin';
+            default:
+                return 'Mahaasiswa';
+        }
+    }
     return (
-        <>
+        <AuthenticatedLayout
+            header={
+                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                    Pengguna Terdaftar
+                </h2>
+            }
+        >
             <Head title="Users" />
             <div className="container mx-auto p-4">
-                <h1 className="text-2xl font-bold mb-4">Registered Users</h1>
-                <table className="min-w-full bg-white border">
-                    <thead>
+                <table className="w-full mt-4 border">
+                    <thead className='border bg-slate-700 text-white'>
                         <tr>
-                            <th className="py-2 px-4 border-b">Name</th>
-                            <th className="py-2 px-4 border-b">Email</th>
-                            <th className="py-2 px-4 border-b">Phone Number</th>
-                            <th className="py-2 px-4 border-b">Identification Number</th>
-                            <th className="py-2 px-4 border-b">Status</th>
+                            <th className="text-center p-2">Nama</th>
+                            <th className="text-center p-2">Email</th>
+                            <th className="text-center p-2">No. Telepon</th>
+                            <th className="text-center p-2">NIM</th>
+                            <th className="text-center p-2">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user, index) => (
                             <tr key={index}>
-                                <td className="py-2 px-4 border-b">{user.name}</td>
-                                <td className="py-2 px-4 border-b">{user.email}</td>
-                                <td className="py-2 px-4 border-b">{user.phone_number}</td>
-                                <td className="py-2 px-4 border-b">{user.identification_number}</td>
-                                <td className="py-2 px-4 border-b">{user.status}</td>
+                                <td className="text-center p-2">{user.name}</td>
+                                <td className="text-center p-2">{user.email}</td>
+                                <td className="text-center p-2">{user.phone_number}</td>
+                                <td className="text-center p-2">{user.identification_number}</td>
+                                <td className="text-center p-2">{getStatus(user.status)}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-        </>
+        </AuthenticatedLayout>
     );
 }

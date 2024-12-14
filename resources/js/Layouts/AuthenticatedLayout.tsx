@@ -42,6 +42,13 @@ export default function Authenticated({
                                     Kegiatan
                                 </NavLink> : ''}
 
+                                {isEditAuthorized ? <NavLink
+                                    href={route('users.index')}
+                                    active={route().current('users.index')}
+                                >
+                                    Pengguna
+                                </NavLink> : ''}
+
                             </div>
                         </div>
 
