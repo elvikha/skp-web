@@ -7,6 +7,7 @@ interface SelectInputProps {
     value: string;
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     renderOption: (option: { id: number; name: string }) => React.ReactNode;
+    default_select_text?: string;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({ id, name, options, value, onChange, renderOption, default_select_text = 'Select Option' }) => {
